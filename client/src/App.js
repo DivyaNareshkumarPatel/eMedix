@@ -17,6 +17,9 @@ import CreatePassword from './Pages/CreatePassword';
 import SignUp from './Pages/SignUp';
 import VerifyEmail from './Pages/VerifyEmail';
 import DoctorLogin from './Pages/DoctorLogin';
+import AdminLogin from './Pages/AdminLogin';
+import AdminPortal from './Pages/AdminPortal';
+import ProtectedRoute from './Pages/ProtectRoutes';
 
 export default function App() {
   return (
@@ -40,6 +43,11 @@ export default function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/verifyemail/:token" element={<VerifyEmail />} />
           <Route path="/doctorLogin" element={<DoctorLogin />} />
+          <Route path="/adminLogin" element={<AdminLogin/>}/>
+          <Route
+            path="/admin-portal/*"
+            element={<ProtectedRoute element={<AdminPortal />} />}
+          />
         </Routes>
       </Router>
     </div>

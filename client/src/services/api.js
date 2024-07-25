@@ -48,3 +48,21 @@ export const verifyOtp = async ({ email, otp }) => {
     throw new Error('An error occurred');
   }
 };
+
+export const resetPassword = async ({ email, newPassword }) => {
+  try {
+    const response = await api.post('/api/users/resetPassword', { email, newPassword });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || 'An error occurred');
+  }
+};
+
+export const adminLogin = async (email, password) => {
+  try {
+    const response = await api.post('/api/admin/adminlogin', { email, password });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

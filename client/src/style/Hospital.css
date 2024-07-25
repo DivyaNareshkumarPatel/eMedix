@@ -1,0 +1,51 @@
+.hospital-page {
+    padding: 20px;
+    background-color: #f4f6f9; /* Light Blue from color palette */
+  }
+  
+  .title {
+    font-size: 24px;
+    color: #4200FF; /* Primary color */
+    margin-bottom: 20px;
+  }
+  
+  .hospital-form {
+    background-color: #ffffff; /* Secondary color */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #404040; /* Black color */
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #DEDEDE; /* Light Grey color */
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .submit-button {
+    background-color: #4200FF; /* Primary color */
+    color: #ffffff; /* Secondary color */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .submit-button:hover {
+    background-color: #3500CC; /* Slightly darker primary color for hover effect */
+  }
+  

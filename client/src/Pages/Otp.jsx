@@ -21,10 +21,8 @@ export default function Otp() {
     try {
       const response = await verifyOtp({ email, otp });
       setNotification({ message: response.message, type: 'success' });
-
-      // Redirect to login after 1 second
       setTimeout(() => {
-        navigate('/login');
+        navigate('/createPassword');
       }, 1000);
     } catch (error) {
       setNotification({ message: error.message || 'An error occurred', type: 'error' });

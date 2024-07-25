@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRouters');
+const adminRoutes = require('./routes/adminRouters.js');
 
 dotenv.config();
 const app = express();
@@ -14,10 +15,10 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 
-// Serve static files from 'build' directory
 app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.use('/api/users', userRoutes);
+app.use('/api/admin', adminRoutes);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
