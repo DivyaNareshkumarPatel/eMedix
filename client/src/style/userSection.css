@@ -1,0 +1,42 @@
+.user-section {
+    padding: 20px;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+  }
+  
+  .user-section h1 {
+    color: #4200FF;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .user-table th,
+  .user-table td {
+    padding: 15px;
+    border: 1px solid #DEDEDE;
+    text-align: center;
+  }
+  
+  .user-table th {
+    background-color: #4200FF;
+    color: #fff;
+  }
+  
+  .user-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .error-message {
+    color: #EA4335;
+    text-align: center;
+  }
+  

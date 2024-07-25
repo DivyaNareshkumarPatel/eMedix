@@ -6,6 +6,8 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRouters');
 const adminRoutes = require('./routes/adminRouters.js');
+const hospitalRoutes = require('./routes/hospitalRoutes.js');
+const doctorRoutes = require('./routes/doctorRouters.js');
 
 dotenv.config();
 const app = express();
@@ -19,6 +21,8 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.use('/api/users', userRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/hospitals', hospitalRoutes);
+app.use('/api/doctors', doctorRoutes)
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));

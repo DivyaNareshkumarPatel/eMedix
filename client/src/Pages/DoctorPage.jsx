@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import '../style/Doctor.css'
+import { addDoctor } from '../services/api';
+import '../style/Doctor.css';
+import Notification from '../Components/Notification';
 
 export default function DoctorPage() {
   const [doctorDetails, setDoctorDetails] = useState({
@@ -9,6 +11,8 @@ export default function DoctorPage() {
     email: '',
     image: null
   });
+
+  const [notification, setNotification] = useState({ message: '', type: '' });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,15 +30,48 @@ export default function DoctorPage() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log(doctorDetails);
+    
+    const formData = new FormData();
+    formData.append('name', doctorDetails.name);
+    formData.append('hospitalSpecialities', doctorDetails.hospitalSpecialities);
+    formData.append('contactNumber', doctorDetails.contactNumber);
+    formData.append('email', doctorDetails.email);
+  
+    if (doctorDetails.image) {
+      formData.append('image', doctorDetails.image);
+    }
+  
+    try {
+      const response = await addDoctor(formData);
+  
+      if (response.success) {
+        setNotification({ message: 'Doctor added successfully!', type: 'success' });
+        setDoctorDetails({
+          name: '',
+          hospitalSpecialities: '',
+          contactNumber: '',
+          email: '',
+          image: null
+        });
+        setTimeout(() => setNotification({ message: '', type: '' }), 2000);
+      } else {
+        setNotification({ message: 'Failed to add doctor.', type: 'error' });
+        setTimeout(() => setNotification({ message: '', type: '' }), 2000);
+      }
+    } catch (error) {
+      console.error('Error submitting form', error);
+      setNotification({ message: 'An error occurred. Please try again.', type: 'error' });
+      setTimeout(() => setNotification({ message: '', type: '' }), 2000);
+    }
   };
+  
 
   return (
     <div className="doctor-page">
       <h1 className="title">Add Doctor Details</h1>
+      <Notification message={notification.message} type={notification.type} />
       <form onSubmit={handleSubmit} className="doctor-form">
         <div className="form-group">
           <label htmlFor="name">Doctor Name:</label>
