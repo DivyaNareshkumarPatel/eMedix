@@ -1,13 +1,30 @@
-import React from 'react'
-import '../style/style.css'
+import React from 'react';
+import '../style/style.css';
+
 export default function RejectMessage() {
   return (
-    <div className='mx-10 my-5 text-black'>
-      <div className='text-xl font-semibold mb-2'>To Reject Appointment of Divya Patel send reason</div>
-      <form action="" className='serviceBox pl-5 pb-5 rounded-xl'>
-        <input type="text" placeholder='Reason' className='my-5 docInput w-4/5'/><br />
-        <button className='bg-primary text-secondary px-4 py-2 rounded'>Send</button>
+    <div className='mx-8 my-6 text-black'>
+      <h2 className='text-2xl font-bold mb-4'>Reject Appointment Request for Divya Patel</h2>
+      <form className='serviceBox p-6 rounded-lg bg-lightBlue shadow-md'>
+        <div className='mb-4'>
+          <label className='block text-lg font-semibold mb-2'>
+            Reason for Rejection
+          </label>
+          <input
+            type="text"
+            placeholder='Enter reason here'
+            className='docInput w-full p-3 rounded-md border border-lightGrey shadow-sm focus:outline-none focus:ring-2 focus:ring-primary transition duration-300'
+          />
+        </div>
+        <div className='flex justify-center'>
+          <button
+            type='submit'
+            className='bg-primary text-secondary px-6 py-3 rounded-lg shadow hover:bg-primaryDark transition-colors duration-300'
+          >
+            Send
+          </button>
+        </div>
       </form>
     </div>
-  )
+  );
 }

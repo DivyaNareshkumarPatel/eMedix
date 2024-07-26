@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function DoctorCard({ name, specialty, hospital, location, image }) {
+export default function DoctorCard({ name, specialty, hospital, location, image, id }) {
   return (
     <div className="m-5 serviceBox p-8 rounded-2xl shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl">
       <div className="flex justify-center items-center flex-col">
@@ -22,7 +22,7 @@ export default function DoctorCard({ name, specialty, hospital, location, image 
         </div>
         <Link
           to="/doctorProfile"
-          state={{ name, specialty, hospital, location, image }} // Pass doctor data
+          state={{ name, specialty, hospital, location, image, id }}
           className="bg-primary text-secondary px-4 py-2 rounded-lg text-xs font-medium border border-transparent hover:border-primary hover:bg-secondary hover:text-primary transition-all duration-300"
         >
           Book an Appointment

@@ -157,3 +157,21 @@ export const fetchDoctorsByHospitalName = async (hospitalName) => {
     throw error;
   }
 };
+
+export const loginDoctor = async (email, password) => {
+  try {
+    const response = await axios.post(`/api/doctors/login`, { email, password });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || 'Server error');
+  }
+};
+
+export const bookAppointment = async (appointmentData) => {
+  try {
+    const response = await api.post('/api/appointments/', appointmentData);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};

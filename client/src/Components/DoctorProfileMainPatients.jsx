@@ -1,88 +1,35 @@
 import React from "react";
-import "../style/style.css";
 import { Link } from "react-router-dom";
+import "../style/style.css";
+
 export default function DoctorProfileMainPatients() {
   return (
-    <div className="px-10 pb-10 text-black">
+    <div className="px-8 pb-10 text-black">
       <div>
-        <div className="text-black mb-5 text-lg font-semibold">
-          Your Patients
-        </div>
-        <div className="">
-          <div className="flex flex-col justify-center items-center serviceBox rounded bg-lightBlue py-2">
-            <table className="w-1/2">
-              <thead>
-                <tr className="text-grey text-base font-thin">
-                  <th className="font-normal">Name</th>
-                  <th className="font-normal">Phone</th>
-                  <th className="font-normal">Email</th>
-                  <th className="font-normal"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="bg-secondary h-10 table-row border-lightGrey border">
-                  <td className="text-center">Divya Patel</td>
-                  <td className="text-center">6355079763</td>
-                  <td className="text-center">
-                    divyanareshkumarPatel@gmail.com
-                  </td>
-                  <td className="text-center">
-                    <Link to="/checkDetails" className="text-primary">Message</Link>
+        <h2 className="text-black mb-6 text-2xl font-bold">Your Patients</h2>
+        <div className="serviceBox rounded-lg bg-lightBlue p-4 shadow-md">
+          <table className="w-full bg-white rounded-lg overflow-hidden shadow-md">
+            <thead className="bg-lightGrey text-grey text-sm font-medium">
+              <tr>
+                <th className="py-3 px-4 text-left">Name</th>
+                <th className="py-3 px-4 text-left">Phone</th>
+                <th className="py-3 px-4 text-left">Email</th>
+                <th className="py-3 px-4 text-left">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[...Array(6)].map((_, index) => (
+                <tr key={index} className="bg-secondary border-b border-lightGrey hover:bg-lightGrey transition-colors duration-300">
+                  <td className="py-3 px-4 text-center">Divya Patel</td>
+                  <td className="py-3 px-4 text-center">6355079763</td>
+                  <td className="py-3 px-4 text-center">divyanareshkumarPatel@gmail.com</td>
+                  <td className="py-3 px-4 text-center">
+                    <Link to="/checkDetails" className="text-primary hover:underline">Message</Link>
                   </td>
                 </tr>
-                <tr className="bg-secondary h-10 table-row border-lightGrey border">
-                  <td className="text-center">Divya Patel</td>
-                  <td className="text-center">6355079763</td>
-                  <td className="text-center">
-                    divyanareshkumarPatel@gmail.com
-                  </td>
-                  <td className="text-center">
-                    <Link to="/checkDetails" className="text-primary">Message</Link>
-                  </td>
-                </tr>
-                <tr className="bg-secondary h-10 table-row border-lightGrey border">
-                  <td className="text-center">Divya Patel</td>
-                  <td className="text-center">6355079763</td>
-                  <td className="text-center">
-                    divyanareshkumarPatel@gmail.com
-                  </td>
-                  <td className="text-center">
-                    <Link to="/checkDetails" className="text-primary">Message</Link>
-                  </td>
-                </tr>
-                <tr className="bg-secondary h-10 table-row border-lightGrey border">
-                  <td className="text-center">Divya Patel</td>
-                  <td className="text-center">6355079763</td>
-                  <td className="text-center">
-                    divyanareshkumarPatel@gmail.com
-                  </td>
-                  <td className="text-center">
-                    <Link to="/checkDetails" className="text-primary">Message</Link>
-                  </td>
-                </tr>
-                <tr className="bg-secondary h-10 table-row border-lightGrey border">
-                  <td className="text-center">Divya Patel</td>
-                  <td className="text-center">6355079763</td>
-                  <td className="text-center">
-                    divyanareshkumarPatel@gmail.com
-                  </td>
-                  <td className="text-center">
-                    <Link to="/checkDetails" className="text-primary">Message</Link>
-                  </td>
-                </tr>
-                <tr className="bg-secondary h-10 table-row border-lightGrey border">
-                  <td className="text-center">Divya Patel</td>
-                  <td className="text-center">6355079763</td>
-                  <td className="text-center">
-                    divyanareshkumarPatel@gmail.com
-                  </td>
-                  <td className="text-center">
-                    <Link to="/checkDetails" className="text-primary">Message</Link>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

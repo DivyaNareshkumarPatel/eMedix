@@ -1,6 +1,6 @@
 const Doctor = require('../models/doctorsModels.js');
 const cloudinary = require('cloudinary').v2;
-
+const jwt = require('jsonwebtoken')
 const addDoctor = async (req, res) => {
   try {
     const { name, hospitalName, hospitalSpecialities, contactNumber, email } = req.body;
@@ -142,10 +142,33 @@ const getDoctorsByHospitalName = async (req, res) => {
   }
 };
 
+const login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const doctor = await Doctor.findOne({ email });
+    if (!doctor) {
+      return res.status(400).json({ success: false, message: 'Invalid credentials' });
+    }
+
+    const isMatch = password===doctor.password;
+    console.log(isMatch)
+    if (!isMatch) {
+      return res.status(400).json({ success: false, message: 'Invalid credentials' });
+    }
+
+    const token = jwt.sign({ id: doctor._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    res.json({ success: true, token });
+  } catch (error) {
+    console.error('Error during login:', error); // Log the error for debugging
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
 module.exports = {
   addDoctor,
   updateDoctor,
   deleteDoctor,
   getDoctors,
   getDoctorsByHospitalName,
+  login
 };

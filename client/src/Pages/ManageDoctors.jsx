@@ -33,7 +33,9 @@ export default function ManageDoctorsPage() {
     formData.append('hospitalSpecialities', selectedDoctor.hospitalSpecialities);
     formData.append('contactNumber', selectedDoctor.contactNumber);
     formData.append('email', selectedDoctor.email);
-
+    formData.append('password', selectedDoctor.password);
+    formData.append('availability', selectedDoctor.availability);
+  
     if (selectedDoctor.image) {
       formData.append('image', selectedDoctor.image);
     }
@@ -89,6 +91,7 @@ export default function ManageDoctorsPage() {
             <p>Specialities: {doctor.hospitalSpecialities}</p>
             <p>Contact Number: {doctor.contactNumber}</p>
             <p>Email: {doctor.email}</p>
+            <p>Availability: {doctor.availability ? 'Available' : 'Not Available'}</p>
             {doctor.image && <img src={doctor.image} alt={doctor.name} className="doctor-image" />}
             <button onClick={() => setSelectedDoctor(doctor)} className="update-button">Update</button>
             <button onClick={() => handleDelete(doctor._id)} className="delete-button">Delete</button>
@@ -171,6 +174,30 @@ export default function ManageDoctorsPage() {
                 className="form-input"
                 required
               />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password:</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={selectedDoctor.password}
+                onChange={(e) => setSelectedDoctor({ ...selectedDoctor, password: e.target.value })}
+                className="form-input"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="availability">
+                <input
+                  type="checkbox"
+                  id="availability"
+                  name="availability"
+                  checked={selectedDoctor.availability}
+                  onChange={(e) => setSelectedDoctor({ ...selectedDoctor, availability: e.target.checked })}
+                  className="form-checkbox"
+                />
+                Available
+              </label>
             </div>
             <div className="form-group">
               <label htmlFor="image">Doctor Image:</label>

@@ -19,7 +19,7 @@ export default function HospitalDocList({ hospital }) {
   }, [hospital.name]);
 
   return (
-    <div className="bg-lightBlue py-16 px-6 md:px-10 lg:px-20">
+    <div className="bg-secondary py-16 px-6 md:px-10 lg:px-20">
       <div className="max-w-5xl mx-auto text-center">
         <div className="text-primary text-3xl font-bold mb-2">
           Our Doctors

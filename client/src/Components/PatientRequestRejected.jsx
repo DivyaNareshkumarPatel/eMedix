@@ -1,82 +1,64 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 export default function PatientRequestRejected() {
   return (
-    <div className="px-10 text-black pb-10">
+    <div style={{ padding: '2.5rem', color: '#404040', fontFamily: 'Arial, sans-serif' }}>
       <div>
-        <div className="text-black mb-5 text-lg font-semibold">
+      <div style={{ color: '#4200FF', marginBottom: '1.25rem', fontSize: '1.5rem', fontWeight: 'bold', textAlign: 'center' }}>
           Request Rejected
         </div>
-        <div className="">
-          <div className="flex flex-col justify-center items-center serviceBox rounded bg-lightBlue py-2">
-            <table className="w-1/2">
+        <div>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: '0.5rem',
+              backgroundColor: '#EDF2FB',
+              padding: '1rem',
+              boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)',
+              maxWidth: '800px',
+              margin: '0 auto',
+            }}
+          >
+            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
-                <tr className="text-grey text-base font-thin">
-                  <th className="font-normal">Doctor</th>
-                  <th className="font-normal">Reason</th>
-                  <th></th>
+                <tr style={{ color: '#A7A7A7', fontSize: '1rem', fontWeight: '400', borderBottom: '2px solid #DEDEDE' }}>
+                  <th style={{ padding: '0.5rem', fontWeight: '400' }}>Doctor</th>
+                  <th style={{ padding: '0.5rem', fontWeight: '400' }}>Reason</th>
+                  <th style={{ padding: '0.5rem' }}></th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="bg-secondary h-10 table-row border-lightGrey border">
-                  <td className="text-center">Dr. XYZ</td>
-                  <td className="text-center">Busy</td>
-                  <td className="text-center">
-                    <Link to="/doctorProfile" className="text-primary">
-                      Doctor Profile
-                    </Link>
-                  </td>
-                </tr>
-                <tr className="bg-secondary h-10 table-row border-lightGrey border">
-                  <td className="text-center">Dr. XYZ</td>
-                  <td className="text-center">Busy</td>
-                  <td className="text-center">
-                    <Link to="/doctorProfile" className="text-primary">
-                      Doctor Profile
-                    </Link>
-                  </td>
-                </tr>
-                <tr className="bg-secondary h-10 table-row border-lightGrey border">
-                  <td className="text-center">Dr. XYZ</td>
-                  <td className="text-center">Busy</td>
-                  <td className="text-center">
-                    <Link to="/doctorProfile" className="text-primary">
-                      Doctor Profile
-                    </Link>
-                  </td>
-                </tr>
-                <tr className="bg-secondary h-10 table-row border-lightGrey border">
-                  <td className="text-center">Dr. XYZ</td>
-                  <td className="text-center">Busy</td>
-                  <td className="text-center">
-                    <Link to="/doctorProfile" className="text-primary">
-                      Doctor Profile
-                    </Link>
-                  </td>
-                </tr>
-                <tr className="bg-secondary h-10 table-row border-lightGrey border">
-                  <td className="text-center">Dr. XYZ</td>
-                  <td className="text-center">Busy</td>
-                  <td className="text-center">
-                    <Link to="/doctorProfile" className="text-primary">
-                      Doctor Profile
-                    </Link>
-                  </td>
-                </tr>
-                <tr className="bg-secondary h-10 table-row border-lightGrey border">
-                  <td className="text-center">Dr. XYZ</td>
-                  <td className="text-center">Busy</td>
-                  <td className="text-center">
-                    <Link to="/doctorProfile" className="text-primary">
-                      Doctor Profile
-                    </Link>
-                  </td>
-                </tr>
+                {[...Array(6)].map((_, index) => (
+                  <tr
+                    key={index}
+                    style={{
+                      backgroundColor: index % 2 === 0 ? '#ffffff' : '#F7F7F7',
+                      height: '2.5rem',
+                      borderBottom: '1px solid #DEDEDE',
+                      textAlign: 'center',
+                      transition: 'background-color 0.3s ease',
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#F0F4F8')}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = index % 2 === 0 ? '#ffffff' : '#F7F7F7')}
+                  >
+                    <td style={{ padding: '0.5rem' }}>Dr. XYZ</td>
+                    <td style={{ padding: '0.5rem' }}>Busy</td>
+                    <td style={{ padding: '0.5rem' }}>
+                      <Link to="/doctorProfile" style={{ color: '#4200FF', textDecoration: 'none', fontWeight: 'bold' }}>
+                        Doctor Profile
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,10 +1,11 @@
 import React from "react";
 import AboutCard from "./AboutCard";
+
 export default function About() {
   return (
     <div className="flex flex-col items-center mt-8 mb-10">
-      <div className="text-2xl font-semibold text-black mb-2">Our Mission and Services</div>
-      <div className="flex flex-wrap justify-center items-center max-w-4xl">
+      <div className="text-2xl font-semibold text-black mb-6">Our Mission and Services</div>
+      <div className="flex flex-wrap justify-center items-center gap-6 max-w-4xl">
         <AboutCard
           iclass="fa-solid fa-trophy"
           text="Our mission is to simplify the process of finding and receiving medical treatment, ensuring everyone has access to the best healthcare possible."

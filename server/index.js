@@ -8,6 +8,7 @@ const userRoutes = require('./routes/userRouters');
 const adminRoutes = require('./routes/adminRouters.js');
 const hospitalRoutes = require('./routes/hospitalRoutes.js');
 const doctorRoutes = require('./routes/doctorRouters.js');
+const appointmentRoutes = require('./routes/appointmentRouter.js');
 
 dotenv.config();
 const app = express();
@@ -23,6 +24,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/hospitals', hospitalRoutes);
 app.use('/api/doctors', doctorRoutes)
+app.use('/api/appointments', appointmentRoutes)
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));

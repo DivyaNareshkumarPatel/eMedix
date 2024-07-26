@@ -2,6 +2,7 @@ require('dotenv').config();
 const { faker } = require('@faker-js/faker');
 const mongoose = require('mongoose');
 
+// Define the hospital schema
 const hospitalSchema = new mongoose.Schema({
   name: String,
   location: String,
@@ -17,13 +18,16 @@ const hospitalSchema = new mongoose.Schema({
 
 const Hospital = mongoose.model('Hospital', hospitalSchema);
 
+// Define the doctor schema with added fields
 const doctorSchema = new mongoose.Schema({
   name: { type: String, required: true },
   hospitalName: { type: String, required: true },
   hospitalLocation: { type: String, required: true },
   contactNumber: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  image: { type: String }
+  password: { type: String, required: true },
+  image: { type: String },
+  availability: { type: Boolean, default: true }
 });
 
 const Doctor = mongoose.model('Doctor', doctorSchema);
@@ -36,7 +40,6 @@ mongoose.connect(process.env.mongoURI)
   .catch(err => {
     console.log('MongoDB connection error:', err);
   });
-
 
 async function generateData() {
   try {
@@ -64,7 +67,9 @@ async function generateData() {
           hospitalLocation: hospital.location,
           contactNumber: faker.phone.number(),
           email: faker.internet.email(),
-          image: `https://via.placeholder.com/150x150.png?text=Doctor+${j + 1}`
+          password: faker.internet.password(),  // Generate a random password
+          image: `https://via.placeholder.com/150x150.png?text=Doctor+${j + 1}`,
+          availability: faker.datatype.boolean()  // Random availability status
         });
 
         await doctor.save();

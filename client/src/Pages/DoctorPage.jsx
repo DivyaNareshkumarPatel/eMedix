@@ -11,6 +11,8 @@ export default function DoctorPage() {
     hospitalSpecialities: '',
     contactNumber: '',
     email: '',
+    password: '', // Added password field
+    availability: true, // Added availability field
     image: null
   });
 
@@ -32,6 +34,14 @@ export default function DoctorPage() {
     }));
   };
 
+  const handleCheckboxChange = (e) => {
+    const { name, checked } = e.target;
+    setDoctorDetails(prevState => ({
+      ...prevState,
+      [name]: checked
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -42,6 +52,8 @@ export default function DoctorPage() {
     formData.append('hospitalSpecialities', doctorDetails.hospitalSpecialities);
     formData.append('contactNumber', doctorDetails.contactNumber);
     formData.append('email', doctorDetails.email);
+    formData.append('password', doctorDetails.password);
+    formData.append('availability', doctorDetails.availability);
   
     if (doctorDetails.image) {
       formData.append('image', doctorDetails.image);
@@ -59,6 +71,8 @@ export default function DoctorPage() {
           hospitalSpecialities: '',
           contactNumber: '',
           email: '',
+          password: '',
+          availability: true,
           image: null
         });
         setTimeout(() => setNotification({ message: '', type: '' }), 2000);
@@ -149,6 +163,31 @@ export default function DoctorPage() {
             className="form-input"
             required
           />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={doctorDetails.password}
+            onChange={handleChange}
+            className="form-input"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="availability">
+            <input
+              type="checkbox"
+              id="availability"
+              name="availability"
+              checked={doctorDetails.availability}
+              onChange={handleCheckboxChange}
+              className="form-checkbox"
+            />
+            Available
+          </label>
         </div>
         <div className="form-group">
           <label htmlFor="image">Doctor Image:</label>

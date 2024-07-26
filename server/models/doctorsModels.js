@@ -6,7 +6,9 @@ const doctorSchema = new mongoose.Schema({
   hospitalLocation: { type: String, required: true },
   contactNumber: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  image: { type: String }
+  password: { type: String, required: true },
+  image: { type: String },
+  availability: { type: Boolean, default: true }
 });
 
 module.exports = mongoose.model('Doctor', doctorSchema);

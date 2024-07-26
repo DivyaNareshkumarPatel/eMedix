@@ -10,11 +10,10 @@ export default function DoctorProfile() {
   const doctor = location.state;
 
   if (!doctor) {
-    // Redirect to the home page if no doctor data is found
     return <Navigate to="/" />;
   }
 
-  const { name, specialty, hospital, location: doctorLocation, image } = doctor;
+  const { name, specialty, hospital, location: doctorLocation, image, id } = doctor;
 
   return (
     <div className='overflow-x-hidden'>
@@ -26,7 +25,7 @@ export default function DoctorProfile() {
         location={doctorLocation}
         image={image}
       />
-      <DoctorProfileMainAppointment />
+      <DoctorProfileMainAppointment docId={id}/>
       <Footer />
     </div>
   );
