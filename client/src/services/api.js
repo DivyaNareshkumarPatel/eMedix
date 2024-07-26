@@ -41,7 +41,6 @@ export const verifyOtp = async ({ email, otp }) => {
     const response = await axios.post(`/api/users/verifyOtp`, { email, otp });
     return response.data;
   } catch (error) {
-    // Extract error message
     if (error.response && error.response.data && error.response.data.message) {
       throw new Error(error.response.data.message);
     }
@@ -134,10 +133,9 @@ export const addDoctor = async (doctorData) => {
 
 export const fetchDoctors = async () => {
   const response = await api.get('/api/doctors');
-  return response.data.data; // Ensure you're returning the correct data format
+  return response.data.data;
 };
 
-// Other existing functions
 export const updateDoctor = async (id, doctorData) => {
   const response = await api.put(`/api/doctors/update/${id}`, doctorData, {
     headers: { 'Content-Type': 'multipart/form-data' },
@@ -148,4 +146,14 @@ export const updateDoctor = async (id, doctorData) => {
 export const deleteDoctor = async (id) => {
   const response = await api.delete(`/api/doctors/delete/${id}`);
   return response.data;
+};
+
+export const fetchDoctorsByHospitalName = async (hospitalName) => {
+  try {
+    const response = await axios.get(`/api/doctors/hospital/${hospitalName}`);
+    return response.data.data;
+  } catch (error) {
+    console.error('Error fetching doctors:', error);
+    throw error;
+  }
 };

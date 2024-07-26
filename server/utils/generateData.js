@@ -2,7 +2,6 @@ require('dotenv').config();
 const { faker } = require('@faker-js/faker');
 const mongoose = require('mongoose');
 
-// Define schemas
 const hospitalSchema = new mongoose.Schema({
   name: String,
   location: String,
@@ -20,7 +19,8 @@ const Hospital = mongoose.model('Hospital', hospitalSchema);
 
 const doctorSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  hospitalSpecialities: { type: String, required: true },
+  hospitalName: { type: String, required: true },
+  hospitalLocation: { type: String, required: true },
   contactNumber: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   image: { type: String }
@@ -28,7 +28,6 @@ const doctorSchema = new mongoose.Schema({
 
 const Doctor = mongoose.model('Doctor', doctorSchema);
 
-// Connect to MongoDB
 mongoose.connect(process.env.mongoURI)
   .then(() => {
     console.log('MongoDB connected');
@@ -38,7 +37,7 @@ mongoose.connect(process.env.mongoURI)
     console.log('MongoDB connection error:', err);
   });
 
-// Generate data
+
 async function generateData() {
   try {
     for (let i = 0; i < 100; i++) {
@@ -57,12 +56,12 @@ async function generateData() {
 
       await hospital.save();
 
-      // Generate 4-5 doctors per hospital
       const numberOfDoctors = faker.datatype.number({ min: 4, max: 5 });
       for (let j = 0; j < numberOfDoctors; j++) {
         const doctor = new Doctor({
           name: faker.name.fullName(),
-          hospitalSpecialities: faker.company.catchPhrase(),
+          hospitalName: hospital.name,
+          hospitalLocation: hospital.location,
           contactNumber: faker.phone.number(),
           email: faker.internet.email(),
           image: `https://via.placeholder.com/150x150.png?text=Doctor+${j + 1}`

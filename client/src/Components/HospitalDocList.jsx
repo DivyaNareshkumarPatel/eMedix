@@ -1,21 +1,45 @@
-import React from 'react'
-import DoctorCard from './DoctorCard'
-export default function HospitalDocList() {
+import React, { useEffect, useState } from 'react';
+import DoctorCard from './DoctorCard';
+import { fetchDoctorsByHospitalName } from '../services/api';
+
+export default function HospitalDocList({ hospital }) {
+  const [doctors, setDoctors] = useState([]);
+
+  useEffect(() => {
+    const getDoctors = async () => {
+      try {
+        const doctorsList = await fetchDoctorsByHospitalName(hospital.name);
+        setDoctors(doctorsList);
+      } catch (error) {
+        console.error('Error fetching doctors:', error);
+      }
+    };
+
+    getDoctors();
+  }, [hospital.name]);
+
   return (
-    <div className="flex justify-center items-center flex-col w-screen m-10">
-      <div className="flex justify-center items-center flex-col max-w-5xl">
-        <div className="text-2xl font-semibold text-primary mb-1">
+    <div className="bg-lightBlue py-16 px-6 md:px-10 lg:px-20">
+      <div className="max-w-5xl mx-auto text-center">
+        <div className="text-primary text-3xl font-bold mb-2">
           Our Doctors
         </div>
-        <div className="text-lg font-semibold text-black mb-3">
-          Book Appointment
+        <div className="text-black text-xl font-semibold mb-8">
+          Book Your Appointment
         </div>
-        <div className="flex flex-wrap">
-          <DoctorCard/>
-          <DoctorCard/>
-          <DoctorCard/>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {doctors.map(doctor => (
+            <DoctorCard 
+            key={doctor.id}
+            name={doctor.name}
+            specialty={doctor.specialty}
+            hospital={doctor.hospitalName}
+            location={doctor.hospitalLocation}
+            image={doctor.image}
+            />
+          ))}
         </div>
       </div>
     </div>
-  )
+  );
 }

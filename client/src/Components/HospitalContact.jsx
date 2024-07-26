@@ -1,22 +1,43 @@
-import React from 'react'
-import HospitalContactCard from './HospitalContactCard'
-export default function HospitalContact() {
+import React from 'react';
+import HospitalContactCard from './HospitalContactCard';
+
+export default function HospitalContact({hospital}) {
   return (
-    <div className="flex justify-center items-center flex-col w-screen mb-10 mx-10">
-      <div className="flex justify-center items-center flex-col max-w-5xl">
-        <div className="text-2xl font-semibold text-primary mb-1">
-          Contact us
+    <div className="bg-secondary py-16 px-6 md:px-10 lg:px-20">
+      <div className="max-w-5xl mx-auto text-center">
+        <div className="text-primary text-3xl font-bold mb-2">
+          Contact Us
         </div>
-        <div className="text-lg font-semibold text-black mb-3">
-          Get in touch
+        <div className="text-black text-xl font-semibold mb-8">
+          Get in Touch
         </div>
-        <div className="flex flex-wrap justify-center items-center">
-          <HospitalContactCard icon={<i class="fa-solid fa-phone-volume"></i>} head="Emergency" line1="(237) 681-812-255" line2="(237) 666-331-894" />
-          <HospitalContactCard icon={<i class="fa-solid fa-location-dot"></i>} head="Location" line1="0123 Some place" line2="9876 Some country"/>
-          <HospitalContactCard icon={<i class="fa-solid fa-envelope"></i>} head="Email" line1="fildineeesoe@gmil.com" line2="myebstudios@gmail.com"/>
-          <HospitalContactCard icon={<i class="fa-solid fa-clock"></i>} head="Working Hours" line1="Mon-Sat 09:00-20:00" line2="Sunday Emergency only"/>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <HospitalContactCard 
+            icon={<i className="fa-solid fa-phone-volume text-secondary text-2xl"></i>} 
+            head="Emergency" 
+            line1={hospital.contactNumbers[0]}
+            line2={hospital.contactNumbers[1]} 
+          />
+          <HospitalContactCard 
+            icon={<i className="fa-solid fa-location-dot text-secondary text-2xl"></i>} 
+            head="Location" 
+            line1={hospital.location} 
+            line2="" 
+          />
+          <HospitalContactCard 
+            icon={<i className="fa-solid fa-envelope text-secondary text-2xl"></i>} 
+            head="Email" 
+            line1={hospital.emails[0]} 
+            line2={hospital.emails[1]} 
+          />
+          <HospitalContactCard 
+            icon={<i className="fa-solid fa-clock text-secondary text-2xl"></i>} 
+            head="Working Hours" 
+            line1={`Mon-Sat ${hospital.workingHours?.monSat}`} 
+            line2={`Sunday ${hospital.workingHours?.sunday}`} 
+          />
         </div>
       </div>
     </div>
-  )
+  );
 }

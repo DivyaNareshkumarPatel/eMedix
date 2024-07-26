@@ -6,6 +6,8 @@ import Notification from '../Components/Notification';
 export default function DoctorPage() {
   const [doctorDetails, setDoctorDetails] = useState({
     name: '',
+    hospitalName: '',
+    hospitalLocation: '',
     hospitalSpecialities: '',
     contactNumber: '',
     email: '',
@@ -35,6 +37,8 @@ export default function DoctorPage() {
     
     const formData = new FormData();
     formData.append('name', doctorDetails.name);
+    formData.append('hospitalName', doctorDetails.hospitalName);
+    formData.append('hospitalLocation', doctorDetails.hospitalLocation);
     formData.append('hospitalSpecialities', doctorDetails.hospitalSpecialities);
     formData.append('contactNumber', doctorDetails.contactNumber);
     formData.append('email', doctorDetails.email);
@@ -50,6 +54,8 @@ export default function DoctorPage() {
         setNotification({ message: 'Doctor added successfully!', type: 'success' });
         setDoctorDetails({
           name: '',
+          hospitalName: '',
+          hospitalLocation: '',
           hospitalSpecialities: '',
           contactNumber: '',
           email: '',
@@ -66,7 +72,6 @@ export default function DoctorPage() {
       setTimeout(() => setNotification({ message: '', type: '' }), 2000);
     }
   };
-  
 
   return (
     <div className="doctor-page">
@@ -80,6 +85,30 @@ export default function DoctorPage() {
             id="name"
             name="name"
             value={doctorDetails.name}
+            onChange={handleChange}
+            className="form-input"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="hospitalName">Hospital Name:</label>
+          <input
+            type="text"
+            id="hospitalName"
+            name="hospitalName"
+            value={doctorDetails.hospitalName}
+            onChange={handleChange}
+            className="form-input"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="hospitalLocation">Hospital Location:</label>
+          <input
+            type="text"
+            id="hospitalLocation"
+            name="hospitalLocation"
+            value={doctorDetails.hospitalLocation}
             onChange={handleChange}
             className="form-input"
             required

@@ -1,13 +1,11 @@
 import React from "react";
 
-export default function HospitalDiffMainLeft() {
+export default function HospitalDiffMainLeft({hospital}) {
   return (
-    <div>
-      <div className="mb-5 z-0">
-        <p className="text-black mb-3">Care for Life</p>
-        <p className="text-primary text-4xl font-semibold">XYZ Hospital</p>
-        <p className="text-black text-3xl font-semibold mt-5">Leading the Way<br/> in Medical Excellence</p>
-      </div>
+    <div className="text-center sm:text-left mb-10 sm:mb-0">
+      <p className="text-black text-lg sm:text-xl mb-3 font-medium">Care for Life</p>
+      <p className="text-primary text-3xl sm:text-5xl font-bold mb-5">{hospital.name}</p>
+      <p className="text-black text-xl sm:text-2xl font-semibold">Leading the Way <br /> in Medical Excellence</p>
     </div>
   );
 }

@@ -1,9 +1,9 @@
-import React from 'react'
-import image from '../Images/doctor.png'
-export default function DoctorProfileMainRight() {
+import React from 'react';
+
+export default function DoctorProfileMainRight({ image }) {
   return (
-    <div className='max-w-96 my-10'>
-      <img src={image} alt="" className='md:max-w-lg max-w-xs'/>
+    <div className='flex justify-center items-center bg-secondary p-5 rounded-lg shadow-lg mb-10'>
+      <img src={image} alt="Doctor" className='h-80 w-auto rounded-lg border-4 border-lightBlue transform transition-transform duration-500 hover:scale-105'/>
     </div>
-  )
+  );
 }

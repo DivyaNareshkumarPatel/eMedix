@@ -28,6 +28,8 @@ export default function ManageDoctorsPage() {
 
     const formData = new FormData();
     formData.append('name', selectedDoctor.name);
+    formData.append('hospitalName', selectedDoctor.hospitalName);
+    formData.append('hospitalLocation', selectedDoctor.hospitalLocation);
     formData.append('hospitalSpecialities', selectedDoctor.hospitalSpecialities);
     formData.append('contactNumber', selectedDoctor.contactNumber);
     formData.append('email', selectedDoctor.email);
@@ -37,19 +39,21 @@ export default function ManageDoctorsPage() {
     }
 
     try {
-      const response = await updateDoctor(selectedDoctor.id, formData);
+      const response = await updateDoctor(selectedDoctor._id, formData);
 
       if (response.success) {
         setNotification({ message: 'Doctor updated successfully!', type: 'success' });
-        setTimeout(() => setNotification({ message: '', type: '' }), 2000); // Hide notification after 2 seconds
+        setDoctors(doctors.map(doc => (doc._id === selectedDoctor._id ? selectedDoctor : doc)));
+        setSelectedDoctor(null);
+        setTimeout(() => setNotification({ message: '', type: '' }), 2000);
       } else {
         setNotification({ message: 'Failed to update doctor.', type: 'error' });
-        setTimeout(() => setNotification({ message: '', type: '' }), 2000); // Hide notification after 2 seconds
+        setTimeout(() => setNotification({ message: '', type: '' }), 2000);
       }
     } catch (error) {
       console.error('Error updating doctor:', error);
       setNotification({ message: 'An error occurred. Please try again.', type: 'error' });
-      setTimeout(() => setNotification({ message: '', type: '' }), 2000); // Hide notification after 2 seconds
+      setTimeout(() => setNotification({ message: '', type: '' }), 2000);
     }
   };
 
@@ -60,15 +64,15 @@ export default function ManageDoctorsPage() {
       if (response.success) {
         setDoctors(doctors.filter(doctor => doctor._id !== id));
         setNotification({ message: 'Doctor deleted successfully!', type: 'success' });
-        setTimeout(() => setNotification({ message: '', type: '' }), 2000); // Hide notification after 2 seconds
+        setTimeout(() => setNotification({ message: '', type: '' }), 2000);
       } else {
         setNotification({ message: 'Failed to delete doctor.', type: 'error' });
-        setTimeout(() => setNotification({ message: '', type: '' }), 2000); // Hide notification after 2 seconds
+        setTimeout(() => setNotification({ message: '', type: '' }), 2000);
       }
     } catch (error) {
       console.error('Error deleting doctor:', error);
       setNotification({ message: 'An error occurred. Please try again.', type: 'error' });
-      setTimeout(() => setNotification({ message: '', type: '' }), 2000); // Hide notification after 2 seconds
+      setTimeout(() => setNotification({ message: '', type: '' }), 2000);
     }
   };
 
@@ -80,75 +84,109 @@ export default function ManageDoctorsPage() {
         {doctors.map(doctor => (
           <div key={doctor._id} className="doctor-item">
             <h2>{doctor.name}</h2>
-            <p>{doctor.hospitalSpecialities}</p>
-            <p>{doctor.contactNumber}</p>
-            <p>{doctor.email}</p>
+            <p>Hospital Name: {doctor.hospitalName}</p>
+            <p>Hospital Location: {doctor.hospitalLocation}</p>
+            <p>Specialities: {doctor.hospitalSpecialities}</p>
+            <p>Contact Number: {doctor.contactNumber}</p>
+            <p>Email: {doctor.email}</p>
             {doctor.image && <img src={doctor.image} alt={doctor.name} className="doctor-image" />}
-            <button onClick={() => setSelectedDoctor(doctor)}>Update</button>
-            <button onClick={() => handleDelete(doctor._id)}>Delete</button>
+            <button onClick={() => setSelectedDoctor(doctor)} className="update-button">Update</button>
+            <button onClick={() => handleDelete(doctor._id)} className="delete-button">Delete</button>
           </div>
         ))}
       </div>
 
       {selectedDoctor && (
-        <form onSubmit={handleUpdate} className="update-form">
+        <div className="update-form">
           <h2>Update Doctor</h2>
-          <div className="form-group">
-            <label htmlFor="name">Doctor Name:</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={selectedDoctor.name}
-              onChange={e => setSelectedDoctor({ ...selectedDoctor, name: e.target.value })}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="hospitalSpecialities">Hospital Specialities:</label>
-            <input
-              type="text"
-              id="hospitalSpecialities"
-              name="hospitalSpecialities"
-              value={selectedDoctor.hospitalSpecialities}
-              onChange={e => setSelectedDoctor({ ...selectedDoctor, hospitalSpecialities: e.target.value })}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="contactNumber">Contact Number:</label>
-            <input
-              type="text"
-              id="contactNumber"
-              name="contactNumber"
-              value={selectedDoctor.contactNumber}
-              onChange={e => setSelectedDoctor({ ...selectedDoctor, contactNumber: e.target.value })}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email ID:</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={selectedDoctor.email}
-              onChange={e => setSelectedDoctor({ ...selectedDoctor, email: e.target.value })}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="image">Doctor Image:</label>
-            <input
-              type="file"
-              id="image"
-              name="image"
-              onChange={e => setSelectedDoctor({ ...selectedDoctor, image: e.target.files[0] })}
-              accept="image/*"
-            />
-          </div>
-          <button type="submit">Update Doctor</button>
-        </form>
+          <form onSubmit={handleUpdate}>
+            <div className="form-group">
+              <label htmlFor="name">Doctor Name:</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={selectedDoctor.name}
+                onChange={(e) => setSelectedDoctor({ ...selectedDoctor, name: e.target.value })}
+                className="form-input"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="hospitalName">Hospital Name:</label>
+              <input
+                type="text"
+                id="hospitalName"
+                name="hospitalName"
+                value={selectedDoctor.hospitalName}
+                onChange={(e) => setSelectedDoctor({ ...selectedDoctor, hospitalName: e.target.value })}
+                className="form-input"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="hospitalLocation">Hospital Location:</label>
+              <input
+                type="text"
+                id="hospitalLocation"
+                name="hospitalLocation"
+                value={selectedDoctor.hospitalLocation}
+                onChange={(e) => setSelectedDoctor({ ...selectedDoctor, hospitalLocation: e.target.value })}
+                className="form-input"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="hospitalSpecialities">Hospital Specialities:</label>
+              <input
+                type="text"
+                id="hospitalSpecialities"
+                name="hospitalSpecialities"
+                value={selectedDoctor.hospitalSpecialities}
+                onChange={(e) => setSelectedDoctor({ ...selectedDoctor, hospitalSpecialities: e.target.value })}
+                className="form-input"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="contactNumber">Contact Number:</label>
+              <input
+                type="text"
+                id="contactNumber"
+                name="contactNumber"
+                value={selectedDoctor.contactNumber}
+                onChange={(e) => setSelectedDoctor({ ...selectedDoctor, contactNumber: e.target.value })}
+                className="form-input"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Email ID:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={selectedDoctor.email}
+                onChange={(e) => setSelectedDoctor({ ...selectedDoctor, email: e.target.value })}
+                className="form-input"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="image">Doctor Image:</label>
+              <input
+                type="file"
+                id="image"
+                name="image"
+                onChange={(e) => setSelectedDoctor({ ...selectedDoctor, image: e.target.files[0] })}
+                className="form-input"
+                accept="image/*"
+              />
+            </div>
+            <button type="submit" className="submit-button">Update</button>
+            <button type="button" onClick={() => setSelectedDoctor(null)} className="cancel-button">Cancel</button>
+          </form>
+        </div>
       )}
     </div>
   );
