@@ -19,12 +19,17 @@ export const verifyEmail = async (token) => {
 };
 
 export const loginUser = async (data) => {
-  const response = await api.post('/api/users/login', data);
-  const { token } = response.data;
+  try {
+    const response = await api.post('/api/users/login', data);
+    const { token } = response.data;
+    console.log(token)
+    setUserToken(token);
 
-  setUserToken(token);
-
-  return response.data;
+    return response.data;
+  } catch (error) {
+    console.error('Error logging in:', error);
+    throw error;
+  }
 };
 
 export const sendOtp = async (email) => {

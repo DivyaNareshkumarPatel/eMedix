@@ -14,8 +14,7 @@ exports.login = async (req, res) => {
       console.log('No admin found with this email.');
       return res.status(401).json({ message: 'Invalid email or password' });
     }
-
-    const isPasswordValid = admin.comparePassword(password);
+    const isPasswordValid = await admin.comparePassword(password);
     console.log('Is password valid:', isPasswordValid);
 
     if (!isPasswordValid) {
@@ -30,7 +29,6 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
-
 exports.getAdminData = (req, res) => {
   res.status(200).json({ message: 'Admin data fetched successfully' });
 };

@@ -69,6 +69,18 @@ exports.verifyEmail = async (req, res) => {
   }
 };
 
+async function rehashPassword(email, newPassword) {
+  try {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+    await User.updateOne({ email }, { password: hashedPassword });
+    console.log(`Password for ${email} has been re-hashed and updated.`);
+  } catch (error) {
+    console.error('Error re-hashing and updating password:', error);
+  }
+}
+
 exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -82,7 +94,12 @@ exports.loginUser = async (req, res) => {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
+    console.log(`User found: ${user.email}, Password from DB: ${user.password}`);
+    await rehashPassword(email, password);
+
     const isMatch = await bcrypt.compare(password, user.password);
+    console.log(`Password match: ${isMatch}, Email: ${email}`);
+
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }

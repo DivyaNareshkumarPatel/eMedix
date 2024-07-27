@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import jwtDecode from '../services/authService'; // Correct import
 import '../style/style.css';
 import { bookAppointment } from '../services/api';
-import getUserIdFromToken from '../services/decodeJWT.js'; // Updated import
+import getUserIdFromToken from '../services/decodeJWT'; // Correct import
 import Notification from '../Components/Notification';
 
 const validateEmail = (email) => {
@@ -59,6 +58,10 @@ export default function DoctorProfileMainAppointment({ docId }) {
     }
 
     const formattedAge = new Date(age).toISOString(); // Convert to ISO date string
+
+    // Debugging logs
+    console.log('docId:', docId);
+    console.log('userId:', userId);
 
     try {
       const response = await bookAppointment({ ...formData, docId, userId, age: formattedAge });

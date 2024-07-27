@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function DoctorCard({ name, specialty, hospital, location, image, id }) {
+  console.log(id)
   return (
     <div className="m-5 serviceBox p-8 rounded-2xl shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl">
       <div className="flex justify-center items-center flex-col">

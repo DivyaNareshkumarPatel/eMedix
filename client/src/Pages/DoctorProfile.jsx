@@ -14,7 +14,7 @@ export default function DoctorProfile() {
   }
 
   const { name, specialty, hospital, location: doctorLocation, image, id } = doctor;
-
+  console.log(id)
   return (
     <div className='overflow-x-hidden'>
       <Navbar />

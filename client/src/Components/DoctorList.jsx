@@ -32,7 +32,8 @@ export default function DoctorList() {
               specialty={doctor.specialty}
               hospital={doctor.hospitalName}
               location={doctor.hospitalLocation}
-              image={doctor.image} />
+              image={doctor.image}
+              id={doctor._id} />
             ))
           ) : (
             <p className="text-grey">Loading...</p>

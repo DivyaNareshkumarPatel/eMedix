@@ -1,10 +1,27 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import {jwtDecode} from 'jwt-decode';
 
-const ProtectedRoute = ({ element, ...rest }) => {
-  const token = localStorage.getItem('adminToken');
+const ProtectedRoute = ({ element, allowedRoles, tokenKey, login }) => {
+  const token = localStorage.getItem(tokenKey);
 
-  return token ? element : <Navigate to="/adminLogin" replace />;
+  if (!token) {
+    return <Navigate to={login} replace />;
+  }
+
+  try {
+    const decodedToken = jwtDecode(token);
+    const userRole = decodedToken.role;
+
+    if (!allowedRoles.includes(userRole)) {
+      return <Navigate to={login} replace />;
+    }
+
+    return element;
+  } catch (error) {
+    console.error('Error decoding token:', error);
+    return <Navigate to="/unauthorized" replace />;
+  }
 };
 
 export default ProtectedRoute;

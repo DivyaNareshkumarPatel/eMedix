@@ -35,7 +35,7 @@ export default function HomeDoctors() {
             hospital={doctor.hospitalName}
             location={doctor.hospitalLocation}
             image={doctor.image}
-            id={doctor.id}
+            id={doctor._id}
           />
         ))}
       </div>

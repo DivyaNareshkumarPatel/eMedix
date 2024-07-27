@@ -32,6 +32,7 @@ const userSchema = new mongoose.Schema({
   },
   otp: String,
   otpExpiry: Date,
+  message: { type: String } // Added message field
 }, {
   timestamps: true,
 });

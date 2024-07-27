@@ -1,12 +1,16 @@
-import { jwtDecode } from 'jwt-decode'; // Use named import
+import {jwtDecode} from 'jwt-decode';
+import { getUserToken } from '../services/authService';
 
 const getUserIdFromToken = () => {
-  const token = localStorage.getItem('token'); // Adjust according to your token storage method
-  if (token) {
+  try {
+    const token = getUserToken();
+    if (!token) return null;
     const decodedToken = jwtDecode(token);
     return decodedToken.id;
+  } catch (error) {
+    console.error('Error decoding token:', error);
+    return null;
   }
-  return null;
 };
 
 export default getUserIdFromToken;

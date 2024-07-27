@@ -33,9 +33,29 @@ export default function App() {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/hospital" element={<Hospital />} />
           <Route path="/doctorProfile" element={<DoctorProfile />} />
-          <Route path="/docAccount" element={<DocAccount />} />
+          <Route
+            path="/doctor-acc"
+            element={
+              <ProtectedRoute
+                element={<DocAccount />}
+                allowedRoles={['doctor']}
+                tokenKey="doctorToken"
+                login="/doctorLogin"
+              />
+            }
+          />
           <Route path="/checkDetails" element={<CheckDetails />} />
-          <Route path="/patientAcc" element={<PatientAcc />} />
+          <Route
+            path="/patient-acc"
+            element={
+              <ProtectedRoute
+                element={<PatientAcc />}
+                allowedRoles={['user']}
+                login="/login"
+                tokenKey="userToken"
+              />
+            }
+          />
           <Route path="/rejectApp" element={<RejectApp />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/otp" element={<Otp />} />
@@ -43,10 +63,11 @@ export default function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/verifyemail/:token" element={<VerifyEmail />} />
           <Route path="/doctorLogin" element={<DoctorLogin />} />
-          <Route path="/adminLogin" element={<AdminLogin/>}/>
+          <Route path="/adminLogin" element={<AdminLogin />}/>
           <Route
             path="/admin-portal/*"
-            element={<ProtectedRoute element={<AdminPortal />} />}
+            element={<ProtectedRoute element={<AdminPortal />} allowedRoles={['admin']}
+              tokenKey="adminToken" login="/adminLogin" />}
           />
         </Routes>
       </Router>
