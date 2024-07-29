@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import DoctorCard from './DoctorCard';
-import { fetchDoctors } from '../services/api'; // Ensure you have this path correct
+import { fetchDoctors } from '../services/api';
 
-export default function DoctorList() {
+export default function DoctorList({ searchQuery, location }) {
   const [doctors, setDoctors] = useState([]);
 
   useEffect(() => {
@@ -18,6 +18,12 @@ export default function DoctorList() {
     getDoctors();
   }, []);
 
+  const filteredDoctors = doctors.filter(
+    (doctor) =>
+      doctor.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      doctor.hospitalLocation.toLowerCase().includes(location.toLowerCase())
+  );
+
   return (
     <div className="flex flex-col items-center justify-center bg-secondary py-10">
       <div className="flex flex-col items-center mt-8 mb-10">
@@ -25,18 +31,21 @@ export default function DoctorList() {
           Meet our Doctors
         </div>
         <div className="flex flex-wrap justify-center items-center gap-6">
-          {doctors.length > 0 ? (
-            doctors.map((doctor) => (
-              <DoctorCard key={doctor.id}
-              name={doctor.name}
-              specialty={doctor.specialty}
-              hospital={doctor.hospitalName}
-              location={doctor.hospitalLocation}
-              image={doctor.image}
-              id={doctor._id} />
+          {filteredDoctors.length > 0 ? (
+            filteredDoctors.map((doctor) => (
+              <DoctorCard
+                key={doctor.id}
+                name={doctor.name}
+                specialty={doctor.specialty}
+                hospital={doctor.hospitalName}
+                location={doctor.hospitalLocation}
+                image={doctor.image}
+                id={doctor._id}
+                message={doctor.message}
+              />
             ))
           ) : (
-            <p className="text-grey">Loading...</p>
+            <p className="text-grey">No doctors found</p>
           )}
         </div>
       </div>

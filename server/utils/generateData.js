@@ -27,11 +27,13 @@ const doctorSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   image: { type: String },
-  availability: { type: Boolean, default: true }
+  availability: { type: Boolean, default: true },
+  message: { type: String },
 });
 
 const Doctor = mongoose.model('Doctor', doctorSchema);
 
+// Connect to MongoDB and generate data
 mongoose.connect(process.env.mongoURI)
   .then(() => {
     console.log('MongoDB connected');
@@ -69,7 +71,8 @@ async function generateData() {
           email: faker.internet.email(),
           password: faker.internet.password(),  // Generate a random password
           image: `https://via.placeholder.com/150x150.png?text=Doctor+${j + 1}`,
-          availability: faker.datatype.boolean()  // Random availability status
+          availability: faker.datatype.boolean(),  // Random availability status
+          message: faker.lorem.sentence()  // Short message
         });
 
         await doctor.save();

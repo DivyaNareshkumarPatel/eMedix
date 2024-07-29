@@ -52,7 +52,10 @@ export default function Login() {
         message: response.message || 'Login successful',
         type: 'success'
       });
-  
+      
+      // Store user token in local storage
+      localStorage.setItem('userToken', response.token);
+
       // Redirect to home page after 1 second
       setTimeout(() => {
         navigate('/');

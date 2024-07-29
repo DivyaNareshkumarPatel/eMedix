@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function DoctorProfileMainLeft({ name, specialty, hospital, location }) {
+export default function DoctorProfileMainLeft({ name, specialty, hospital, location, message }) {
   return (
     <div>
       <div className="text-4xl font-semibold mb-5 z-0">
@@ -8,9 +8,7 @@ export default function DoctorProfileMainLeft({ name, specialty, hospital, locat
         <p className="text-black">{hospital}</p>
       </div>
       <div className="text-grey mb-10 w-96">
-        {specialty} <br></br>A neurologist is a medical doctor specializing in
-        the diagnosis and treatment of disorders affecting the nervous system,
-        including the brain, spinal cord, and nerves.
+        {specialty} <br></br>{message}
       </div>
       <div className="text-grey mb-10 w-96">
         Location: {location}

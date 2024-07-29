@@ -59,7 +59,7 @@ export default function Navbar() {
         <div className="flex items-center space-x-4">
           {isLoggedIn ? (
             <Link 
-              to="/patientAcc" 
+              to="/patient-acc" 
               className="text-primary border-primary border-2 px-4 py-2 rounded text-sm flex items-center hover:bg-primary hover:text-secondary transition"
               aria-label="Go to account page"
             >

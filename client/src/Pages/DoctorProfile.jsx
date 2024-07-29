@@ -13,8 +13,8 @@ export default function DoctorProfile() {
     return <Navigate to="/" />;
   }
 
-  const { name, specialty, hospital, location: doctorLocation, image, id } = doctor;
-  console.log(id)
+  const { name, specialty, hospital, location: doctorLocation, image, id, message } = doctor;
+  console.log(message)
   return (
     <div className='overflow-x-hidden'>
       <Navbar />
@@ -24,6 +24,7 @@ export default function DoctorProfile() {
         hospital={hospital}
         location={doctorLocation}
         image={image}
+        message={message}
       />
       <DoctorProfileMainAppointment docId={id}/>
       <Footer />

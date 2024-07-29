@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginDoctor } from '../services/api'; // Import the login function from your API module
+import { loginDoctor } from '../services/api';
+import { setUserToken} from '../services/authService';
 
 export default function DoctorLogin() {
   const [email, setEmail] = useState('');
@@ -18,8 +19,9 @@ export default function DoctorLogin() {
       const response = await loginDoctor(email, password);
 
       if (response.success) {
-        // Redirect to doctor account page
-        navigate('/docAccount');
+        localStorage.setItem('doctorToken', response.token);
+        setUserToken(response.token, 'doctorToken');
+        navigate('/doctor-acc');
       } else {
         setError(response.message || 'Login failed. Please try again.');
       }
@@ -72,14 +74,14 @@ export default function DoctorLogin() {
 
 const styles = {
   loginContainer: {
-    backgroundColor: '#edf2fb', // Light blue background color
+    backgroundColor: '#edf2fb',
     height: '100vh',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
   },
   loginBox: {
-    backgroundColor: '#ffffff', // White background for the form
+    backgroundColor: '#ffffff',
     borderRadius: '8px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     padding: '20px',
@@ -89,12 +91,12 @@ const styles = {
   loginTitle: {
     fontSize: '24px',
     fontWeight: 'bold',
-    color: '#4200ff', // Primary color
+    color: '#4200ff',
     marginBottom: '20px',
     textAlign: 'center'
   },
   errorMessage: {
-    color: '#ea4335', // Red color for error messages
+    color: '#ea4335',
     textAlign: 'center',
     marginBottom: '15px'
   },
@@ -108,13 +110,13 @@ const styles = {
   formInput: {
     width: '100%',
     padding: '10px',
-    border: '1px solid #a7a7a7', // Grey border
+    border: "1px solid '#a7a7a7'",
     borderRadius: '4px',
     fontSize: '16px'
   },
   loginButton: {
-    backgroundColor: '#4200ff', // Primary color
-    color: '#ffffff', // White text
+    backgroundColor: '#4200ff',
+    color: '#ffffff',
     border: 'none',
     padding: '10px',
     borderRadius: '4px',

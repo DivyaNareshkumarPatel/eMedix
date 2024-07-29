@@ -44,7 +44,16 @@ export default function App() {
               />
             }
           />
-          <Route path="/checkDetails" element={<CheckDetails />} />
+          <Route path="/checkDetails" 
+            element={
+              <ProtectedRoute
+                element={<CheckDetails/>}
+                allowedRoles={['doctor']}
+                tokenKey="doctorToken"
+                login="/doctorLogin"
+              />
+            }
+          />
           <Route
             path="/patient-acc"
             element={

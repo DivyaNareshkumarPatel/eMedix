@@ -9,3 +9,29 @@ exports.bookAppointment = async (req, res) => {
         res.status(400).send({ success: false, error: error.message });
     }
 };
+
+exports.getAppointmentsByUser = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const appointments = await Appointment.find({ userId }).populate('docId').exec();
+        // res.json({ appointments });
+        res.status(200).send({ success: true, appointments });
+    } catch (error) {
+        res.status(400).send({ success: false, error: error.message });
+    }
+};
+
+exports.getDoctorAppointments = async (req, res) => {
+    try {
+      const doctorId = req.params.doctorId;
+      const appointments = await Appointment.find({ docId: doctorId }).populate('userId').exec();
+  
+      if (appointments.length === 0) {
+        return res.status(404).send({ success: false, message: 'No appointments found' });
+      }
+  
+      res.status(200).send({ success: true, appointments });
+    } catch (error) {
+      res.status(500).send({ success: false, error: error.message });
+    }
+  };

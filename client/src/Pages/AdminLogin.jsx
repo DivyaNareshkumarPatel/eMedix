@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { adminLogin } from '../services/api'; // Adjust the path as needed
+import { adminLogin } from '../services/api';
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
@@ -20,7 +20,7 @@ export default function AdminLogin() {
 
       setTimeout(() => {
         navigate('/admin-portal');
-      }, 1000); // 1 second delay
+      }, 1000);
     } catch (error) {
       console.error('Error logging in:', error);
       setError('Invalid email or password');

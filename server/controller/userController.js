@@ -94,18 +94,13 @@ exports.loginUser = async (req, res) => {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
-    console.log(`User found: ${user.email}, Password from DB: ${user.password}`);
-    await rehashPassword(email, password);
-
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log(`Password match: ${isMatch}, Email: ${email}`);
-
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
     const token = jwt.sign(
-      { id: user._id, email: user.email },
+      { id: user._id, email: user.email, role: 'user' }, // Include role in the token
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );

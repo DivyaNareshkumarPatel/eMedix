@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { setUserToken } from './authService';
+import { getUserToken } from './authService';
 
 const api = axios.create({
   baseURL: 'http://localhost:5000',
@@ -22,7 +23,6 @@ export const loginUser = async (data) => {
   try {
     const response = await api.post('/api/users/login', data);
     const { token } = response.data;
-    console.log(token)
     setUserToken(token);
 
     return response.data;
@@ -166,6 +166,9 @@ export const fetchDoctorsByHospitalName = async (hospitalName) => {
 export const loginDoctor = async (email, password) => {
   try {
     const response = await axios.post(`/api/doctors/login`, { email, password });
+    const { token } = response.data;
+    console.log(token)
+    setUserToken(token); // Save the token
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message || 'Server error');
@@ -178,5 +181,56 @@ export const bookAppointment = async (appointmentData) => {
     return response.data;
   } catch (error) {
     throw error.response.data;
+  }
+};
+
+export const fetchAppointmentsByUser = async (userId) => {
+  const token = getUserToken();
+  try {
+    const response = await api.get(`/api/appointments/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response.data.appointments;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const getDoctorAppointments = async (doctorId) => {
+  const token = getUserToken('doctorToken');
+  try {
+    const response = await api.get(`/api/appointments/doctor/${doctorId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('API error:', error);
+    return { success: false, message: 'Failed to fetch appointments.' };
+  }
+};
+
+export const fetchDoctorById = async (id) => {
+  try {
+    const token = getUserToken('doctorToken'); // Ensure you are retrieving the correct token
+    if (!token) {
+      throw new Error('No token found, please login.');
+    }
+
+    const response = await api.get(`/api/doctors/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}` // Include the token in the header
+      }
+    });
+
+    if (response.data && response.data.success) {
+      return response.data;
+    } else {
+      throw new Error('Failed to fetch doctor details');
+    }
+  } catch (error) {
+    console.error('Error fetching doctor by ID:', error.message || error);
+    throw error;
   }
 };

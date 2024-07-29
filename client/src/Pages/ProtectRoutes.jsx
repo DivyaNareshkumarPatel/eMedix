@@ -20,7 +20,7 @@ const ProtectedRoute = ({ element, allowedRoles, tokenKey, login }) => {
     return element;
   } catch (error) {
     console.error('Error decoding token:', error);
-    return <Navigate to="/unauthorized" replace />;
+    return <Navigate to={login} replace />;
   }
 };
 

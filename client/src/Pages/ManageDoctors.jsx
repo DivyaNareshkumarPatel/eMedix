@@ -35,7 +35,8 @@ export default function ManageDoctorsPage() {
     formData.append('email', selectedDoctor.email);
     formData.append('password', selectedDoctor.password);
     formData.append('availability', selectedDoctor.availability);
-  
+    formData.append('message', selectedDoctor.message);
+
     if (selectedDoctor.image) {
       formData.append('image', selectedDoctor.image);
     }
@@ -82,22 +83,6 @@ export default function ManageDoctorsPage() {
     <div className="manage-doctors-page">
       <h1 className="title">Manage Doctors</h1>
       <Notification message={notification.message} type={notification.type} />
-      <div className="doctors-list">
-        {doctors.map(doctor => (
-          <div key={doctor._id} className="doctor-item">
-            <h2>{doctor.name}</h2>
-            <p>Hospital Name: {doctor.hospitalName}</p>
-            <p>Hospital Location: {doctor.hospitalLocation}</p>
-            <p>Specialities: {doctor.hospitalSpecialities}</p>
-            <p>Contact Number: {doctor.contactNumber}</p>
-            <p>Email: {doctor.email}</p>
-            <p>Availability: {doctor.availability ? 'Available' : 'Not Available'}</p>
-            {doctor.image && <img src={doctor.image} alt={doctor.name} className="doctor-image" />}
-            <button onClick={() => setSelectedDoctor(doctor)} className="update-button">Update</button>
-            <button onClick={() => handleDelete(doctor._id)} className="delete-button">Delete</button>
-          </div>
-        ))}
-      </div>
 
       {selectedDoctor && (
         <div className="update-form">
@@ -200,6 +185,17 @@ export default function ManageDoctorsPage() {
               </label>
             </div>
             <div className="form-group">
+              <label htmlFor="message">Message:</label>
+              <input
+                type="text"
+                id="message"
+                name="message"
+                value={selectedDoctor.message}
+                onChange={(e) => setSelectedDoctor({ ...selectedDoctor, message: e.target.value })}
+                className="form-input"
+              />
+            </div>
+            <div className="form-group">
               <label htmlFor="image">Doctor Image:</label>
               <input
                 type="file"
@@ -210,11 +206,62 @@ export default function ManageDoctorsPage() {
                 accept="image/*"
               />
             </div>
-            <button type="submit" className="submit-button">Update</button>
-            <button type="button" onClick={() => setSelectedDoctor(null)} className="cancel-button">Cancel</button>
+            <button
+              type="submit"
+              style={{ backgroundColor: '#34A853', color: '#fff', padding: '10px 20px', marginRight: '10px', border: 'none', cursor: 'pointer' }}
+            >
+              Update
+            </button>
+            <button
+              type="button"
+              onClick={() => setSelectedDoctor(null)}
+              style={{ padding: '10px 20px', border: 'none', cursor: 'pointer' }}
+            >
+              Cancel
+            </button>
           </form>
         </div>
       )}
+
+      <table className="doctors-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Hospital Name</th>
+            <th>Hospital Location</th>
+            <th>Contact Number</th>
+            <th>Email</th>
+            <th>Availability</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {doctors.map(doctor => (
+            <tr key={doctor._id}>
+              <td>{doctor.name}</td>
+              <td>{doctor.hospitalName}</td>
+              <td>{doctor.hospitalLocation}</td>
+              <td>{doctor.contactNumber}</td>
+              <td>{doctor.email}</td>
+              <td>{doctor.availability ? 'Available' : 'Not Available'}</td>
+              <td>
+                <button
+                  onClick={() => setSelectedDoctor(doctor)}
+                  style={{ backgroundColor: '#34A853', color: '#fff', padding: '5px 10px', border: 'none', cursor: 'pointer' }}
+                >
+                  Update
+                </button>
+                <button
+                  onClick={() => handleDelete(doctor._id)}
+                  style={{ backgroundColor: '#EA4335', color: '#fff', padding: '5px 10px', border: 'none', cursor: 'pointer' }}
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

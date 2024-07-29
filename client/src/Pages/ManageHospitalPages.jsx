@@ -50,7 +50,7 @@ const ManageHospitalsPage = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -111,10 +111,10 @@ const ManageHospitalsPage = () => {
               type="text"
               name="contactNumbers"
               value={formData.contactNumbers[0]}
-              onChange={e => {
+              onChange={(e) => {
                 const newContactNumbers = [...formData.contactNumbers];
                 newContactNumbers[0] = e.target.value;
-                setFormData(prevState => ({ ...prevState, contactNumbers: newContactNumbers }));
+                setFormData((prevState) => ({ ...prevState, contactNumbers: newContactNumbers }));
               }}
               className="form-input"
               placeholder="Contact Number 1"
@@ -124,10 +124,10 @@ const ManageHospitalsPage = () => {
               type="text"
               name="contactNumbers"
               value={formData.contactNumbers[1]}
-              onChange={e => {
+              onChange={(e) => {
                 const newContactNumbers = [...formData.contactNumbers];
                 newContactNumbers[1] = e.target.value;
-                setFormData(prevState => ({ ...prevState, contactNumbers: newContactNumbers }));
+                setFormData((prevState) => ({ ...prevState, contactNumbers: newContactNumbers }));
               }}
               className="form-input"
               placeholder="Contact Number 2"
@@ -139,10 +139,10 @@ const ManageHospitalsPage = () => {
               type="email"
               name="emails"
               value={formData.emails[0]}
-              onChange={e => {
+              onChange={(e) => {
                 const newEmails = [...formData.emails];
                 newEmails[0] = e.target.value;
-                setFormData(prevState => ({ ...prevState, emails: newEmails }));
+                setFormData((prevState) => ({ ...prevState, emails: newEmails }));
               }}
               className="form-input"
               placeholder="Email 1"
@@ -152,10 +152,10 @@ const ManageHospitalsPage = () => {
               type="email"
               name="emails"
               value={formData.emails[1]}
-              onChange={e => {
+              onChange={(e) => {
                 const newEmails = [...formData.emails];
                 newEmails[1] = e.target.value;
-                setFormData(prevState => ({ ...prevState, emails: newEmails }));
+                setFormData((prevState) => ({ ...prevState, emails: newEmails }));
               }}
               className="form-input"
               placeholder="Email 2"
@@ -199,7 +199,7 @@ const ManageHospitalsPage = () => {
             </tr>
           </thead>
           <tbody>
-            {hospitals.map(hospital => (
+            {hospitals.map((hospital) => (
               <tr key={hospital._id}>
                 <td>{hospital.name}</td>
                 <td>{hospital.location}</td>

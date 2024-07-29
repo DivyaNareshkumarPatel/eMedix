@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import HospitalCard from "./HospitalCard";
 import { fetchHospitals } from "../services/api";
 
-export default function HospitalList() {
+export default function HospitalList({ searchQuery, location }) {
   const [hospitals, setHospitals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -22,6 +22,11 @@ export default function HospitalList() {
     getHospitals();
   }, []);
 
+  const filteredHospitals = hospitals.filter(hospital => 
+    hospital.name.toLowerCase().includes(searchQuery.toLowerCase()) && 
+    hospital.location.toLowerCase().includes(location.toLowerCase())
+  );
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
@@ -32,7 +37,7 @@ export default function HospitalList() {
           Visit our Hospitals
         </div>
         <div className="flex flex-wrap justify-center items-center gap-6">
-          {hospitals.map((hospital) => (
+          {filteredHospitals.map((hospital) => (
             <HospitalCard
               key={hospital._id}
               name={hospital.name}

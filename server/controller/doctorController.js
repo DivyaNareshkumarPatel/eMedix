@@ -150,19 +150,31 @@ const login = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Invalid credentials' });
     }
 
-    const isMatch = password===doctor.password;
-    console.log(isMatch)
+    const isMatch = password === doctor.password;
     if (!isMatch) {
       return res.status(400).json({ success: false, message: 'Invalid credentials' });
     }
 
-    const token = jwt.sign({ id: doctor._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = doctor.generateToken()
     res.json({ success: true, token });
   } catch (error) {
-    console.error('Error during login:', error); // Log the error for debugging
+    console.error('Error during login:', error);
     res.status(500).json({ success: false, message: 'Server error' });
   }
 };
+
+const getDoctorById = async (req, res) => {
+  try {
+    const doctor = await Doctor.findById(req.params.id);
+    if (!doctor) {
+      return res.status(404).json({ success: false, message: 'Doctor not found' });
+    }
+    res.json({ success: true, doctor });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
 
 module.exports = {
   addDoctor,
@@ -170,5 +182,6 @@ module.exports = {
   deleteDoctor,
   getDoctors,
   getDoctorsByHospitalName,
-  login
+  login,
+  getDoctorById
 };

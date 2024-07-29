@@ -15,14 +15,11 @@ const doctorSchema = new mongoose.Schema({
 });
 
 doctorSchema.pre('save', async function (next) {
-  if (this.isModified('password')) {
-    this.password = await bcrypt.hash(this.password, 10);
-  }
   next();
 });
 
 doctorSchema.methods.comparePassword = function (password) {
-  return bcrypt.compare(password, this.password);
+  return password === this.password
 };
 
 doctorSchema.methods.generateToken = function () {

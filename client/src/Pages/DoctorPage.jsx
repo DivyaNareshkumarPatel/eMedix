@@ -11,9 +11,10 @@ export default function DoctorPage() {
     hospitalSpecialities: '',
     contactNumber: '',
     email: '',
-    password: '', // Added password field
-    availability: true, // Added availability field
-    image: null
+    password: '',
+    availability: true,
+    image: null,
+    message: '' // Added message field
   });
 
   const [notification, setNotification] = useState({ message: '', type: '' });
@@ -54,6 +55,7 @@ export default function DoctorPage() {
     formData.append('email', doctorDetails.email);
     formData.append('password', doctorDetails.password);
     formData.append('availability', doctorDetails.availability);
+    formData.append('message', doctorDetails.message);
   
     if (doctorDetails.image) {
       formData.append('image', doctorDetails.image);
@@ -73,7 +75,8 @@ export default function DoctorPage() {
           email: '',
           password: '',
           availability: true,
-          image: null
+          image: null,
+          message: ''
         });
         setTimeout(() => setNotification({ message: '', type: '' }), 2000);
       } else {
@@ -188,6 +191,17 @@ export default function DoctorPage() {
             />
             Available
           </label>
+        </div>
+        <div className="form-group">
+          <label htmlFor="message">Message:</label>
+          <input
+            type="text"
+            id="message"
+            name="message"
+            value={doctorDetails.message}
+            onChange={handleChange}
+            className="form-input"
+          />
         </div>
         <div className="form-group">
           <label htmlFor="image">Doctor Image:</label>
