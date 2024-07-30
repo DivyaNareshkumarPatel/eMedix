@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function HospitalCard({ name, location, image, contactNumbers, emails, displayPhoto, id}) {
   return (
-    <div className="m-5 serviceBox p-8 rounded-2xl shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl">
+    <div className="m-5 serviceBox p-8 rounded-2xl shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl w-72">
       <div className="flex justify-center items-center flex-col">
         <div className="h-36 w-52 my-1 flex justify-center items-center rounded-xl overflow-hidden">
           <img src={image} className="h-full object-cover" alt={name} />

@@ -44,10 +44,11 @@ export default function App() {
               />
             }
           />
-          <Route path="/checkDetails" 
+          <Route
+            path="/checkDetails/:appointmentId"
             element={
               <ProtectedRoute
-                element={<CheckDetails/>}
+                element={<CheckDetails />}
                 allowedRoles={['doctor']}
                 tokenKey="doctorToken"
                 login="/doctorLogin"
@@ -72,7 +73,7 @@ export default function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/verifyemail/:token" element={<VerifyEmail />} />
           <Route path="/doctorLogin" element={<DoctorLogin />} />
-          <Route path="/adminLogin" element={<AdminLogin />}/>
+          <Route path="/adminLogin" element={<AdminLogin />} />
           <Route
             path="/admin-portal/*"
             element={<ProtectedRoute element={<AdminPortal />} allowedRoles={['admin']}

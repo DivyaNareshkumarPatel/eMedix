@@ -3,12 +3,8 @@ import { Link } from "react-router-dom";
 
 export default function DoctorCard({ name, specialty, hospital, location, image, id, message }) {
   return (
-    <div className="m-5 serviceBox p-8 rounded-2xl shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl">
+    <div className="m-5 serviceBox p-8 rounded-2xl shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl w-72">
       <div className="flex justify-center items-center flex-col">
-        <div className="flex items-center bg-lightGrey rounded-full px-3 py-1 mb-4">
-          <div className="w-2 h-2 rounded-full bg-primary mx-1"></div>
-          <p className="text-xs text-black">Available</p>
-        </div>
         <div className="bg-lightBlue h-36 w-36 flex justify-center items-center rounded-full overflow-hidden mb-4 shadow-md">
           <img src={image} className="h-full w-full object-cover" alt="Doctor" />
         </div>

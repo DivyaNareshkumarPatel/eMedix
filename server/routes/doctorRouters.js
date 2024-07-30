@@ -12,6 +12,6 @@ router.delete('/delete/:id', deleteDoctor);
 router.get('/', getDoctors);
 router.get('/hospital/:hospitalName', getDoctorsByHospitalName);
 router.post('/login', login);
-router.get('/:id', authMiddleware, getDoctorById);
+router.get('/:id', getDoctorById);
 
 module.exports = router;

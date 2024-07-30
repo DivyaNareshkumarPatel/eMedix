@@ -163,18 +163,30 @@ const login = async (req, res) => {
   }
 };
 
+const authenticateToken = (req, res, next) => {
+  const token = req.header('Authorization')?.split(' ')[1];
+  if (!token) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+};
+
 const getDoctorById = async (req, res) => {
   try {
-    const doctor = await Doctor.findById(req.params.id);
+    const doctorId = req.params.id;
+    const doctor = await Doctor.findById(doctorId);
     if (!doctor) {
-      return res.status(404).json({ success: false, message: 'Doctor not found' });
+      return res.status(404).json({ message: 'Doctor not found' });
     }
     res.json({ success: true, doctor });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Server error' });
+    console.error('Error fetching doctor by ID:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch doctor details' });
   }
 };
-
 
 module.exports = {
   addDoctor,

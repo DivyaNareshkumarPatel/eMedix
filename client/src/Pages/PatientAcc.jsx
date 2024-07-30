@@ -24,9 +24,9 @@ export default function PatientAcc() {
       <Navbar/>
       <PatientWel userId={userId} />
       <PatientAppReq userId={userId} />
-      <PatientReqAcc userId={userId} />
+      {/* <PatientReqAcc userId={userId} />
       <PatientMessage userId={userId} />
-      <PatientRequestRejected userId={userId} />
+      <PatientRequestRejected userId={userId} /> */}
       <Footer/>
     </div>
   )

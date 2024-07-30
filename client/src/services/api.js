@@ -168,7 +168,7 @@ export const loginDoctor = async (email, password) => {
     const response = await axios.post(`/api/doctors/login`, { email, password });
     const { token } = response.data;
     console.log(token)
-    setUserToken(token); // Save the token
+    setUserToken(token);
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message || 'Server error');
@@ -198,12 +198,30 @@ export const fetchAppointmentsByUser = async (userId) => {
   }
 };
 
-export const getDoctorAppointments = async (doctorId) => {
-  const token = getUserToken('doctorToken');
+api.interceptors.request.use(
+  config => {
+    const token = getUserToken('doctorToken');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  error => Promise.reject(error)
+);
+
+export const fetchDoctorById = async (doctorId) => {
   try {
-    const response = await api.get(`/api/appointments/doctor/${doctorId}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
+    const response = await axios.get(`/api/doctors/${doctorId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching doctor by ID:', error);
+    throw new Error('Failed to fetch doctor details');
+  }
+};
+
+export const getDoctorAppointments = async (doctorId) => {
+  try {
+    const response = await api.get(`/api/appointments/doctor/${doctorId}`);
     return response.data;
   } catch (error) {
     console.error('API error:', error);
@@ -211,26 +229,12 @@ export const getDoctorAppointments = async (doctorId) => {
   }
 };
 
-export const fetchDoctorById = async (id) => {
+export const getAppointmentById = async (id) => {
   try {
-    const token = getUserToken('doctorToken'); // Ensure you are retrieving the correct token
-    if (!token) {
-      throw new Error('No token found, please login.');
-    }
-
-    const response = await api.get(`/api/doctors/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}` // Include the token in the header
-      }
-    });
-
-    if (response.data && response.data.success) {
-      return response.data;
-    } else {
-      throw new Error('Failed to fetch doctor details');
-    }
+    const response = await api.get(`/api/appointments/${id}`);
+    return response.data;
   } catch (error) {
-    console.error('Error fetching doctor by ID:', error.message || error);
-    throw error;
+    console.error('API error:', error);
+    return { success: false, message: 'Failed to fetch appointments.' };
   }
 };

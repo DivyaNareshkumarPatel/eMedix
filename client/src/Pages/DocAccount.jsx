@@ -16,17 +16,19 @@ export default function DocAccount() {
     const fetchDoctorData = async () => {
       try {
         const token = getUserToken('doctorToken');
+        console.log(token)
         if (!token) {
           setError('No token found, please login.');
           setLoading(false);
           return;
         }
 
-        const { id: doctorId } = JSON.parse(atob(token.split('.')[1]));
+        // Parse token to get doctor ID
+        const decodedToken = JSON.parse(atob(token.split('.')[1]));
+        const doctorId = decodedToken.id // Assuming docId is stored in the token payload
         console.log('Parsed Doctor ID:', doctorId);
 
         const doctorResponse = await fetchDoctorById(doctorId);
-        console.log(doctorResponse)
         console.log('Doctor Details Response:', doctorResponse);
         if (doctorResponse.success) {
           setDoctorName(doctorResponse.doctor.name);
