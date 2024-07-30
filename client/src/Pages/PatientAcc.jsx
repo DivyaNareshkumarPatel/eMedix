@@ -5,7 +5,6 @@ import PatientAppReq from '../Components/PatientAppReq'
 import PatientReqAcc from '../Components/PatientReqAcc'
 import PatientMessage from '../Components/PatientMessage'
 import PatientRequestRejected from '../Components/PatientRequestRejected'
-import Footer from '../Components/Footer'
 import { getUserToken } from '../services/authService';
 export default function PatientAcc() {
   const [userId, setUserId] = useState(null);
@@ -27,7 +26,6 @@ export default function PatientAcc() {
       {/* <PatientReqAcc userId={userId} />
       <PatientMessage userId={userId} />
       <PatientRequestRejected userId={userId} /> */}
-      <Footer/>
     </div>
   )
 }
