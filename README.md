@@ -1,6 +1,6 @@
 # eMedix
 
-eMedix is a comprehensive web application that connects patients with registered hospitals and doctors for easy appointment booking. The platform allows patients to book appointments (offline or online) based on their disease and doctor's advice.
+eMedix is a comprehensive web application that connects patients with registered hospitals and doctors for easy appointment booking. The platform allows patients to book appointments (online).
 
 ## Features
 
