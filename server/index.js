@@ -26,9 +26,9 @@ app.use('/api/hospitals', hospitalRoutes);
 app.use('/api/doctors', doctorRoutes)
 app.use('/api/appointments', appointmentRoutes)
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+// });
 
 app.listen(PORT, () => {
   console.log('App is listening on port:', PORT);
