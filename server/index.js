@@ -19,7 +19,6 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
-app.use(bodyParser.json());
 
 // app.use(express.static(path.join(__dirname, '../client/build')));
 
